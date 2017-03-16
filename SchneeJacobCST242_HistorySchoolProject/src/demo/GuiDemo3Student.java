@@ -1,6 +1,17 @@
 /*
  * New Ideas here, we're going to try something with combo boxes and course ids.
  */
+
+
+/*
+ * MAJOR PROBLEM - OVERLAPPING COURSEBAGS WITH STUDENTS. I NEED TO MAKE SURE EACH STUDENT HAS THEIR OWN SEPERATE COURSES. THEY ADD ON TO EACH OTHER
+
+	SOLVED - PROBLEM WAS WE ONLY CREATED ONE AND I REPEAT ONE COURSEBAG FOR STUDENTS. ITS SHARED AMONG THEM. 
+	WE CREATE NEW STUDENTS, BUT WE DONT CREATE NEW COURSEBAGS, THAT IS WHY WE GOT REPITITION, IT WAS STACKING ON THEM,
+	OR IN OTHER WORDS SHARING THE SAME BAG. 
+	
+	WE CREATED/INSTANTIATED THE COURSEBAG OUTSIDE THE ADDBTN, SO WE GOT NO NEW COURSE BAGS.
+ */
 package demo;
 
 import javafx.application.Application;
@@ -28,14 +39,13 @@ public class GuiDemo3Student extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 			BodyBag pBag = new BodyBag();
-			courseBag studentBag = new courseBag();
 			MasterCourseBag mcb = new MasterCourseBag();
 			mcb.loadCourse();
 			mcb.displayCourse();
 			
 			Label fNameLbl = new Label("First Name");
 			TextField fNameField = new TextField();
-			Label lNameLbl = new Label("First Name");
+			Label lNameLbl = new Label("Last Name");
 			TextField lNameField = new TextField();
 			HBox nameBox = new HBox(10);
 			nameBox.getChildren().addAll(fNameLbl, fNameField, lNameLbl, lNameField);
@@ -85,11 +95,40 @@ public class GuiDemo3Student extends Application {
 			HBox deleteBox = new HBox(10);
 			deleteBox.getChildren().addAll(deleteLbl, deleteField, deleteBtn);
 			
+			
 			//Just do one course per thing, i have an idea. Combo box idea
-			ComboBox <Course> coursesBox = new ComboBox<Course>();
-			coursesBox.setValue(mcb.getCourseList().get(0));
+			Label courseTakingLbl = new Label("Course Taking:");
+			TextField courseTakingField = new TextField();
+			/*ComboBox <Course> coursesBox = new ComboBox<Course>();
+			for(int i = 0; i < mcb.getCourseList().size(); i++){
+			coursesBox.getItems().addAll(mcb.getCourseList().get(i));
+			}*/
+			HBox courseTakingBox = new HBox(10);
+			courseTakingBox.getChildren().addAll(courseTakingLbl, courseTakingField);
+			
+			//Courses took
+			Label courseTookLbl = new Label("Course Took:");
+			TextField courseTookField = new TextField();
+			/*ComboBox <Course> courseTookBox = new ComboBox<Course>();
+			for(int i = 0; i < mcb.getCourseList().size(); i++){
+				courseTookBox.getItems().addAll(mcb.getCourseList().get(i));
+			}*/
+			HBox courseToookBox = new HBox(10);
+			courseToookBox.getChildren().addAll(courseTookLbl, courseTookField);
+			
+			//Courses ToTake
+			Label courseToTakeLbl = new Label("Course To Take:");
+			TextField courseToTakeField = new TextField();
+		/*	ComboBox <Course> toTakeBox = new ComboBox<Course>();
+			for(int i = 0; i < mcb.getCourseList().size(); i++){
+				toTakeBox.getItems().addAll(mcb.getCourseList().get(i));
+			}*/
+			HBox courseToTakeBox = new HBox(10);
+			courseToTakeBox.getChildren().addAll(courseToTakeLbl, courseToTakeField);
 			
 			addBtn.setOnAction(e -> { 
+				courseBag studentBag = new courseBag();
+
 				String fName = fNameField.getText();
 				String lName = lNameField.getText();
 				
@@ -100,9 +139,18 @@ public class GuiDemo3Student extends Application {
 				String theState = state.getValue();
 				Address a = new Address(stNumb, stName, town, theState, zip);
 				
+			
+				studentBag.addCoursesTaking(mcb.findCourse(courseTakingField.getText()));
+				studentBag.addCoursesTook(mcb.findCourse(courseTookField.getText()));
+				studentBag.addCoursesToTake(mcb.findCourse(courseToTakeField.getText()));
+				//String courseTaking = courseTakingField.getText();
+				//studentBag.addCoursesTaking(mcb.findCourse(courseTaking));
+				
 				Student s = new Student(fName, lName, a, studentBag);
 				pBag.addPerson(s);
-				studentBag.addCoursesTaking(coursesBox.getValue());
+			/*	studentBag.addCoursesTaking(coursesBox.getValue());
+				studentBag.addCoursesTook(courseTookBox.getValue());
+				studentBag.addCoursesToTake(toTakeBox.getValue());*/
 				
 				fNameField.clear();
 				lNameField.clear();
@@ -112,6 +160,13 @@ public class GuiDemo3Student extends Application {
 				zipField.clear();
 				state.setValue("");
 				
+				courseTakingField.clear();
+				courseTookField.clear();
+				courseToTakeField.clear();
+			
+				
+		
+
 			});
 			
 			displayBtn.setOnAction(e -> { 
@@ -139,7 +194,7 @@ public class GuiDemo3Student extends Application {
 			
 			//We need to also look into the courses as well.
 			VBox everythingBox = new VBox();
-			everythingBox.getChildren().addAll(nameBox, addressBox, buttonBox, findBox, deleteBox, coursesBox);
+			everythingBox.getChildren().addAll(nameBox, addressBox, buttonBox, findBox, deleteBox, courseTakingBox, courseToookBox, courseToTakeBox);
 			Scene scene = new Scene (everythingBox);
 			stage.setScene(scene);
 			stage.show();

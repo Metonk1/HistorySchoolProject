@@ -1,5 +1,8 @@
 package model;
 import java.io.Serializable;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 public class Address implements Serializable{
 	
@@ -10,11 +13,28 @@ public class Address implements Serializable{
 	private String zip;
 	public Address(String stNumber, String stName, String city, String state, String zip) {
 		super();
+		Scanner kb = new Scanner(System.in);
+		while (true) {
+			if (zip.length() != 5) {
+				try {
+					throw new ZipException("Error: The zip is not five characters");
+				} catch (ZipException e) {
+//					System.out.println(e.getMessage());
+					zip = JOptionPane.showInputDialog(e.getMessage() + "\nEnter a correct Zip");
+				}
+			} else {
+				break;
+			}
+		}
+		
+		
 		this.stNumber = stNumber;
 		this.stName = stName;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+		
+	
 	}
 	//Overloaded constructor --- deep copy
 	public Address(Address a){

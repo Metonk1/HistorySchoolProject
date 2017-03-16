@@ -156,7 +156,13 @@ public class BodyBag {
 		return null;
 	}
 	//Could also try Faculty as well - 3/12
-	
+	public Faculty findFacultyById(String id){
+		for(Person p: personList){
+			if(p.getId().equals(id) && p instanceof Faculty)
+				return (Faculty) p;
+		}
+		return null;
+	}
 
 	public ArrayList<Person> getPersonList() {
 		return personList;
