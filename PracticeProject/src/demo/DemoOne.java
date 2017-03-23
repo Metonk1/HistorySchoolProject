@@ -7,6 +7,8 @@ import data.Faculty;
 import data.MasterCourseBag;
 import data.Student;
 import data.StudentCourseBag;
+import data.TextBag;
+import data.TextBook;
 
 public class DemoOne {
 
@@ -15,6 +17,7 @@ public class DemoOne {
 		//first we do a basic check of everything then go into TextBooks - modify courses to have it.
 		MasterCourseBag mcb = new MasterCourseBag();
 		BodyBag pBag = new BodyBag();
+		TextBag tBag = new TextBag();
 		
 		//2 course bags --> two students
 		StudentCourseBag studentBag1 = new StudentCourseBag();
@@ -58,7 +61,24 @@ public class DemoOne {
 		//studentBag2.deleteCourseTookv2("AST101");
 		pBag.displayBodyBag();
 		
+		
+		//Note to check the length of isbn to set a limit.
+		System.out.println();
+		System.out.println("Now testing Textbooks");
+		TextBook t1 = new TextBook("How to be dumb", "Scott brown", "Dumb inc", "3", "2015", 150.00);
+		TextBook t2 = new TextBook("Astronony for Idiots", "Peter", "Dumb inc", "2", "2016", 3000.00);
+		TextBook t3 = new TextBook("Make A Million Dollars Fast", " Lewis", "Dumb inc", "1", "2002", 541.00);
+		tBag.addTextBook(t3);
+		tBag.addTextBook(t2);
+		tBag.addTextBook(t1);
+		tBag.deleteTextBook("2");
+		System.out.println(tBag.findTextBook("3"));
+		//tBag.displayTextBook();
+		//tBag.displayTextBook();
+
 		//We need to implement TextBook
+		
+		//Note when doing the GUI output for appendage on a textarea, play around with the display method and figure something out.
 
 	}
 	
