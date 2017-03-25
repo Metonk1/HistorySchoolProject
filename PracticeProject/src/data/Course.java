@@ -1,22 +1,24 @@
 package data;
 import java.io.Serializable;
-//3-21-17 
+//3-21-17
 //We will need to modify this to accomodate the TextBook Class
 
 public class Course implements Serializable {
 	private String courseNumber;
 	private String courseName;
 	private int credits;
+	private TextBook textBook;
 	//private String grade; // A+, a, B+, B
 //Grade is for the specific student, we may add that at a later point
-	public Course(String courseNumber, String courseName, int credits) {
+	public Course(String courseNumber, String courseName, int credits, TextBook textBook) {
 		this.courseNumber = courseNumber;
 		this.courseName = courseName;
 		this.credits = credits;
+		this.textBook =textBook;
 	}
-	
+
 	public Course(){
-		
+
 	}
 
 	public String getCourseNumber() {
@@ -48,13 +50,21 @@ public class Course implements Serializable {
 		this.courseNumber = c.getCourseNumber();
 		this.credits = c.getCredits();
 	}
-	
 
+
+
+	public TextBook getTextBook() {
+		return textBook;
+	}
+
+	public void setTextBook(TextBook textBook) {
+		this.textBook = textBook;
+	}
 
 	@Override
 	public String toString() {
-		return "Course [courseNumber=" + courseNumber + ", courseName=" + courseName + ", credits=" + credits
-				+ "]";
+		return "Course: CourseNumber = " + courseNumber + ", CourseName = " + courseName + ", Credits = " + credits
+				+ " \nTextBook: " + textBook;
 	}
 
 }

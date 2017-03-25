@@ -1,6 +1,8 @@
 package data;
 
-public class TextBook {
+import java.io.Serializable;
+
+public class TextBook implements Serializable {
 //Book title , author name,  publisher, book price, isbn, and year publish (note price should be double)
 	String bookTitle;
 	String author;
@@ -8,7 +10,7 @@ public class TextBook {
 	double price;
 	String isbn;
 	String year;
-	
+
 	public TextBook(String bookTitle, String author, String publisher, String isbn, String year, double price) {
 		super();
 		this.bookTitle = bookTitle;
@@ -69,11 +71,11 @@ public class TextBook {
 
 	@Override
 	public String toString() {
-		return "TextBook Title: " + bookTitle + "\nAuthor: " + author + "\nPublisher: " + publisher + "\nPrice: "
-				+ price + "\nIsbn: " + isbn + "\nYear: " + year + "\n";
+		return "TextBook Title: " + bookTitle + " , Author: " + author + " , Publisher: " + publisher + " , Price: "
+				+ price + " , Isbn: " + isbn + " , Year: " + year + "\n";
 	}
-	
-	
-	
+
+
+
 }
 

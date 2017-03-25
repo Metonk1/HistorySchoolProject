@@ -1,6 +1,8 @@
 //Were here to try methods, for example scene created here
 
 //Well experiment with containers. So lets do HBox for now then switch over to GridPane
+
+//3-23: Were going to just have the user add the ISBN of the Textbook.
 package practiceGUI;
 
 import data.Course;
@@ -14,13 +16,14 @@ import javafx.scene.layout.VBox;
 
 public class CoursePage {
 
-		private Label courseNameLbl, courseNumberLbl, creditsLbl;
-		private TextField courseNameField, courseNumberField, creditsField;
+		private Label courseNameLbl, courseNumberLbl, creditsLbl, textBookLbl;
+		private TextField courseNameField, courseNumberField, creditsField, textBookField;
 		private Button addBtn;
 		//HBox
 		private HBox courseNumberBox;
 		private HBox courseNameBox;
 		private HBox creditBox;
+		private HBox textBookBox;
 		//VBox
 		private VBox courseVbox;
 
@@ -36,6 +39,13 @@ public class CoursePage {
 			courseNumberField = new TextField();
 			creditsField = new TextField();
 			addBtn = new Button("Add");
+
+			//TextBook class section
+			textBookLbl = new Label("TextBook Isbn: ");
+			textBookField = new TextField();
+			textBookBox = new HBox(10);
+			textBookBox.getChildren().addAll(textBookLbl, textBookField);
+
 			courseNumberBox = new HBox(10);
 			courseNameBox = new HBox(10);
 			creditBox = new HBox(10);
@@ -43,7 +53,7 @@ public class CoursePage {
 			courseNameBox.getChildren().addAll(courseNameLbl, courseNameField);
 			creditBox.getChildren().addAll(creditsLbl, creditsField);
 			courseVbox = new VBox(10);
-			courseVbox.getChildren().addAll(courseNumberBox, courseNameBox, creditBox, addBtn);
+			courseVbox.getChildren().addAll(courseNumberBox, courseNameBox, creditBox, textBookBox, addBtn);
 
 			courseScene = new Scene(courseVbox);
 		}
@@ -56,7 +66,7 @@ public class CoursePage {
 			return courseScene;
 		}
 
-		
+
 		public TextField getCourseNameField(){
 			return courseNameField;
 		}
@@ -66,6 +76,7 @@ public class CoursePage {
 		public TextField getCreditField(){
 			return creditsField;
 		}
+
 
 		//Getter
 		public String getCourseName(){
@@ -79,6 +90,17 @@ public class CoursePage {
 		public String getCredits(){
 			return creditsField.getText();
 		}
+
+
+		//Textbook getters
+		public String getIsbn(){
+			return textBookField.getText();
+		}
+
+		public TextField getTextBookField(){
+			return textBookField;
+		}
+
 
 		//For now getbutton
 		public Button getAddBtn(){
